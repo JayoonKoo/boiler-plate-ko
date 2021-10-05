@@ -1,18 +1,16 @@
 // import UserInfo from './confg';
-const {userInfo} = require('./confg');
+const config = require('./config/key');
 const express = require('express');
 const mongoose = require('mongoose');
 const {User} = require("./models/User");
-const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
-const {id, password} = userInfo;
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-mongoose.connect(`mongodb+srv://${id}:${password}@cluster0.7copo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {})
+mongoose.connect(config.mongoURI, {})
 	.then(() => console.log('MongoDb Connected ...'))
 	.catch(console.log);
 
