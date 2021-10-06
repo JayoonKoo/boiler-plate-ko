@@ -44,10 +44,12 @@ userSchema.pre('save', function(next) {
 			bcrypt.hash(this.password, salt, (err, hash) => {
 				if (err) return next(err);
 				this.password = hash;
+				next();
 			})
 		})
+	} else {
+		next();
 	}
-	next();
 })
 
 userSchema.methods.comparePassword = function(plainPassword, cb) {
@@ -69,7 +71,7 @@ userSchema.methods.generateToken = function(cb) {
 	});
 }
 
-userSchema.static.findByToken = function(token, cb) {
+userSchema.statics.findByToken = function(token, cb) {
 	const user = this;
 	// 토큰을 decode
 	jwt.verify(token, 'secretToken', function(err, decoded) {
