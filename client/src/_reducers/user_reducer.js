@@ -1,5 +1,5 @@
 
-import {LOGIN_USER, REGISTER_USER} from '../_actions/types';
+import {LOGIN_USER, REGISTER_USER, AUTH_USER} from '../_actions/types';
 
 
 function User(state ={}, action) {
@@ -9,6 +9,9 @@ function User(state ={}, action) {
 
 		case REGISTER_USER:
 			return {...state, register: action.payload};
+
+		case AUTH_USER:
+			return {...state, userData: action.payload};
 	
 		default:
 			return state;
